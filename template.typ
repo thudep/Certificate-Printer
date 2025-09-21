@@ -24,7 +24,11 @@
 
 #place(left,dy:39em,dx:66%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*清华大学工程物理系*], size: 20pt,fill:tsinghua_purple))
 
-#place(center,dy:35em,dx:-24%, image("dep.jpg",width: 9em))
+#place(left,dy:42em,dx:66%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*#datetime.display(datetime.today(), "[year]年[month]月[day]日")*], size: 20pt,fill:tsinghua_purple))
+
+#place(center,dy:35em,dx:-30%, image("dep.jpg",width: 9em))
+
+#place(center,dy:35em,dx:-18%, image("depsast.jpg",width: 9em))
 
 #place(left,dy:47em,dx:14%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*证书摘要*], size: 14pt,fill:tsinghua_purple))
 
