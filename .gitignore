@@ -1,5 +1,6 @@
 output/
 release/
+__pycache__/
 *.txt
 *.csv
 *.typ
