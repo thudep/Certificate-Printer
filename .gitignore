@@ -1,6 +1,7 @@
 output/
-secret.txt
-fingerprint.typ
-contest.typ
-name.typ
-prize.typ
+release/
+*.txt
+*.csv
+*.typ
+!award.typ
+!depsast.typ

@@ -1,4 +1,4 @@
-#set page(paper: "a4",flipped: true, margin: (x: 0em,y:0em),background: image("bg.svg"))
+#set page(paper: "a4",flipped: true, margin: (x: 0em,y:0em),background: image("img/bg.svg"))
 
 #let tsinghua_purple=rgb(106,8,116)
 
@@ -12,25 +12,25 @@
 
 #place(left,dy:19em,dx:26%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*同学*], size: 24pt, fill:tsinghua_purple))
 
-#place(center,dy:28em, text(font: "Source Han Serif", lang: "zh", region: "cn",strong(underline[#include "prize.typ"]), size: 28pt))
+#place(center,dy:24em,dx:-25%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*你在*], size: 22pt,fill:tsinghua_purple))
 
-#place(center,dy:24em,dx:-20%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*你在*], size: 22pt,fill:tsinghua_purple))
+#place(center,dy:24em, text(font: "Source Han Serif", lang: "zh", region: "cn",strong(underline[#include "title.typ"]), size: 22pt))
 
-#place(center,dy:24em, text(font: "Source Han Serif", lang: "zh", region: "cn",strong(underline[#include "contest.typ"]), size: 22pt))
+#place(center,dy:24em,dx:26%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*中荣获*], size: 22pt,fill:tsinghua_purple))
 
-#place(center,dy:24em,dx:21%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*中荣获*], size: 22pt,fill:tsinghua_purple))
+#place(center,dy:28em, text(font: "Source Han Serif", lang: "zh", region: "cn",strong(underline[#include "content.typ"]), size: 28pt))
 
 #place(left,dy:32em,dx:14%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*特发此证，以资鼓励*], size: 22pt,fill:tsinghua_purple))
 
-#place(left,dy:39em,dx:66%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*清华大学工程物理系*], size: 20pt,fill:tsinghua_purple))
+#place(left,dy:39em,dx:66%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*清华大学工物科协*], size: 20pt,fill:tsinghua_purple))
 
 #place(left,dy:42em,dx:66%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*#datetime.display(datetime.today(), "[year]年[month]月[day]日")*], size: 20pt,fill:tsinghua_purple))
 
-#place(center,dy:35em,dx:-30%, image("dep.png",width: 9em))
+#place(center,dy:35em,dx:-30%, image("img/dep.png",width: 9em))
 
-#place(center,dy:35em,dx:-18%, image("depsast.png",width: 9em))
+#place(center,dy:35em,dx:-18%, image("img/depsast.png",width: 9em))
 
-#place(left,dy:47em,dx:14%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*证书摘要*], size: 14pt,fill:tsinghua_purple))
+#place(left,dy:47em,dx:14%, text(font: "Source Han Serif", lang: "zh", region: "cn",[*证书校验码*], size: 14pt,fill:tsinghua_purple))
 
 // see https://github.com/typst/typst/issues/2196#issuecomment-1728135476
 #let try_to_string(content) = {
@@ -45,5 +45,5 @@
   }
 }
 
-#place(left,dy:47em,dx:22%, text(raw(try_to_string([#include "fingerprint.typ"])), size: 16pt, fill:tsinghua_purple))
+#place(left,dy:47em,dx:24%, text(raw(try_to_string([#include "fingerprint.typ"])), size: 16pt, fill:tsinghua_purple))
 

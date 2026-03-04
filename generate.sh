@@ -5,22 +5,33 @@ processBar()
     local current=$1
     local total=$2
     local name=$3
-    local contest=$4
-    local prize=$5
+    local title=$4
+    local content=$5
     local percentage=$((current*100/total))
-    printf "\r[INF] Processing: $name, $contest, $prize - $current/$total ($percentage%%)"
+    printf "\r[INF] Processing: $name, $title, $content - $current/$total ($percentage%%)"
 }
 
 # Read Parameters
-while getopts ":s:h" opts; do
+while getopts ":s:t:h" opts; do
     case ${opts} in
         s)  secret=$OPTARG
             echo "[INF] Using Secret: $secret"
             ;;
-        h)  echo "[INF] Usage: $0 [-s <secret>]"
-            echo "[INF]     Default: use secret from secret.txt."
-            echo "[INF]     You can also provide a custom secret instead to generate the certificates."
-            exit 1
+        t)  template=$OPTARG
+            echo "[INF] Using template: $template"
+            ;;
+        h)
+            echo "Usage: $0 [-s <secret>] [-t <template>]"
+            echo
+            echo "Options:"
+            echo "  -s <secret>     Provide secret key manually."
+            echo "                  If not specified, the script reads from secret.txt."
+            echo
+            echo "  -t <template>   Specify Typst template file."
+            echo "                  Default: award.typ"
+            echo
+            echo "  -h              Show this help message and exit."
+            exit 0
             ;;
         \?) echo "[ERR] Invalid option: $OPTARG, Use -h for help"
             exit 1
@@ -43,28 +54,40 @@ if [ -z "$secret" ]; then
     fi
 fi
 
+if [ -z "$template" ]; then
+    template="award.typ"
+    echo "[INF] No template specified. Using default: $template"
+fi
+
 # Run the script
 
 mkdir -p output
 
-whole=$(wc -l < list.CSV)
+whole=$(wc -l < list.csv)
 process=0
 
-while IFS=',' read -r name prize contest; do
+while IFS=',' read -r name title content; do
     echo "$name" > name.typ
+    echo "$title" > title.typ
+    echo "$content" > content.typ
 
-    echo "$contest" > contest.typ
+    combined="${name}${title}${content}${secret}"
+    echo -n "$combined" \
+        | tr -d '[:space:]' \
+        | sha256sum \
+        | awk '{print $1}' \
+        | xxd -r -p \
+        | base32 \
+        | tr -d '=' \
+        | tr 'A-Z' 'A-Z' \
+        | cut -c1-10 \
+        > fingerprint.typ
 
-    echo "$prize" > prize.typ
-
-    combined="${name}${prize}${contest}${secret}"
-    echo -n "$combined" | tr -d '[:space:]' | sha1sum | awk '{print $1}' > fingerprint.typ
-
-    typst compile template.typ "output/${name}.pdf"
+    typst compile "$template" "output/${name}-${title}-${content}.pdf"
 
     process=$((process+1))
-    processBar $process $whole $name $contest $prize
-done < list.CSV
+    processBar $process $whole "$name" "$title" "$content"
+done < list.csv
 
 echo
 echo "[INF] Completed"
